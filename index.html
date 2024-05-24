@@ -1,0 +1,141 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+<style>
+#word1, #word2, #word3, #word4, #word5, #word6, #word7, #word8, #word9, #word10, #word11, #word12 {
+  width: 150px;
+  height: 60px;
+  padding: 10px;
+  margin: 10px;
+  border: 1px solid #aaaaaa;
+  display: inline-block; 
+}
+
+/*定義圖片樣式*/
+img {
+  width: 120px;
+  height: 120px;
+  margin: 35px;
+  border: 1px solid #aaaaaa;
+}
+
+ /*定義分數顯示區域的樣本*/
+ #score {
+  font-size: 20px;
+  margin-top: 20px;
+}
+</style>
+<script>
+let score = 0; // 使用區域變數，初始化分數為0(全域變數為var)
+
+/*允許拖曳的元素*/
+function allowDrop(ev) {
+  ev.preventDefault();  //阻止預設行為，以允許托放
+}
+
+/*設定被拖曳元素的資料*/
+function drag(ev) {  
+  ev.dataTransfer.setData("text", ev.target.id);   //將被拖曳元素的ID存入拖曳資料("text")
+}
+
+/*處理放置事件 drop檢查id是否放在正確位置*/
+function drop(ev, word) {
+  ev.preventDefault();  //阻止預設行為
+  const data = ev.dataTransfer.getData("text");  //獲取被拖曳元素的ID (data "="指派)
+  const img = document.getElementById(data);  //獲取被拖曳的元素
+
+  if (data === word) {  //如果拖曳的元素ID與目標單字匹配
+    ev.target.appendChild(img);  //將圖片添加到目標區域
+    score++;  //分數加1
+  } else {
+    score--;  //分數減1
+  }
+
+  document.getElementById("score").innerText = "Score: " + score;  //更新分數顯示(隨時執行) 
+
+  // 檢查是否所有單字區域都有圖片
+  if (document.getElementById("word1").children.length > 0 &&  //子元素長度>0
+      document.getElementById("word2").children.length > 0 &&
+      document.getElementById("word3").children.length > 0 &&
+      document.getElementById("word4").children.length > 0 &&
+      document.getElementById("word5").children.length > 0 &&
+      document.getElementById("word6").children.length > 0 &&
+      document.getElementById("word7").children.length > 0 &&
+      document.getElementById("word8").children.length > 0 &&
+      document.getElementById("word9").children.length > 0 &&
+      document.getElementById("word10").children.length > 0 &&
+      document.getElementById("word11").children.length > 0 &&
+      document.getElementById("word12").children.length > 0 ) {
+    //如果分數為12則顯示通過
+    if (score === 12) {
+      alert("恭喜過關！\n最終總分：" + score);
+    } else {
+      //否則顯示未完全正確訊息
+      alert("未完全正確，最終總分：" + score);
+    }
+  }
+}
+</script>
+</head>
+<body>
+
+
+<h2><p>將正確的圖片拖曳到正確的單字位置上：</p></h2>
+
+<h4><p>第一題：</p></h4>
+<!-- 第一題:定義單字區域，允許拖曳 -->
+<div id="word1" ondrop="drop(event, 'Rose')" ondragover="allowDrop(event)">玫瑰  Rose</div>
+<div id="word2" ondrop="drop(event, 'Hydrangeas')" ondragover="allowDrop(event)">繡球花  Hydrangeas</div>
+<div id="word3" ondrop="drop(event, 'Dandelion')" ondragover="allowDrop(event)">蒲公英  Dandelion</div>
+<div id="word4" ondrop="drop(event, 'Lily of the valley')" ondragover="allowDrop(event)">鈴蘭  Lily of the valley</div>
+
+<br>
+
+<!-- 第一題:定義可拖曳的圖片，設置drag事件 -->
+<img id="Lily of the valley" src="lily of the valley.png" draggable="true" ondragstart="drag(event)">
+<img id="Dandelion" src="dandelion.png" draggable="true" ondragstart="drag(event)">
+<img id="Rose" src="rose.png" draggable="true" ondragstart="drag(event)">
+<img id="Hydrangeas" src="hydrangeas.png" draggable="true" ondragstart="drag(event)">
+
+<br>
+
+<h4><p>第二題：</p></h4>
+<!-- 第二題:定義單字區域，允許拖曳 -->
+<div id="word5" ondrop="drop(event, 'Onion')" ondragover="allowDrop(event)">蔥  Onion</div>
+<div id="word6" ondrop="drop(event, 'Ginger')" ondragover="allowDrop(event)">薑  Ginger</div>
+<div id="word7" ondrop="drop(event, 'Wasabi')" ondragover="allowDrop(event)">山葵  Wasabi</div>
+<div id="word8" ondrop="drop(event, 'Coriander')" ondragover="allowDrop(event)">香菜  Coriander</div>
+
+<br>
+
+<!-- 第二題:定義可拖曳的圖片，設置drag事件 -->
+<img id="Ginger" src="ginger.png" draggable="true" ondragstart="drag(event)">
+<img id="Onion" src="onion.png" draggable="true" ondragstart="drag(event)">
+<img id="Coriander" src="coriander.png" draggable="true" ondragstart="drag(event)">
+<img id="Wasabi" src="wasabi.png" draggable="true" ondragstart="drag(event)">
+
+<br>
+
+<h4><p>第三題：</p></h4>
+<!-- 第三題:定義單字區域，允許拖曳 -->
+<div id="word9" ondrop="drop(event, 'Tennis')" ondragover="allowDrop(event)">網球  Tennis</div>
+<div id="word10" ondrop="drop(event, 'Volleyball')" ondragover="allowDrop(event)">排球  Volleyball</div>
+<div id="word11" ondrop="drop(event, 'Badminton')" ondragover="allowDrop(event)">羽毛球  Badminton</div>
+<div id="word12" ondrop="drop(event, 'Baseball')" ondragover="allowDrop(event)">棒球  Baseball</div>
+
+<br>
+
+<!-- 第三題:定義可拖曳的圖片，設置drag事件 -->
+<img id="Badminton" src="badminton.png" draggable="true" ondragstart="drag(event)">
+<img id="Tennis" src="tennis.png" draggable="true" ondragstart="drag(event)">
+<img id="Baseball" src="baseball.png" draggable="true" ondragstart="drag(event)">
+<img id="Volleyball" src="volleyball.png" draggable="true" ondragstart="drag(event)">
+
+
+<!-- 顯示分數 -->
+<p id="score">Score: 0</p>
+
+</body>
+</html>
+
+
